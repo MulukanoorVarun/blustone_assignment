@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:blustone_assignment/Providers/ProductDetailsProvider.dart';
 import 'package:blustone_assignment/productlistScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'Providers/ConnectivityService.dart';
 import 'Providers/ProductListProvider.dart';
+import 'Splash.dart';
 
 
 
@@ -26,6 +28,9 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => ProductListProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProductDetailsProvider(),
         ),
       ],
       child: MyApp(),
@@ -81,7 +86,7 @@ class MyApp extends StatelessWidget {
           colorScheme: const ColorScheme.light(background: Colors.white)
               .copyWith(background: Colors.white),
         ),
-        home:ProductListScreen()
+        home:Splash(),
     );
   }
 }
