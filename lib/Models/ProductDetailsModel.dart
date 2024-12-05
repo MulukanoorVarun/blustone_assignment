@@ -19,7 +19,7 @@ class ProductDetailsModel {
   ProductDetailsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
-    price = json['price'];
+    price = _toDouble(json['price']); // Convert to double
     description = json['description'];
     category = json['category'];
     image = json['image'];
@@ -41,6 +41,16 @@ class ProductDetailsModel {
     return data;
   }
 }
+/// Helper method to handle dynamic price conversion
+double? _toDouble(dynamic value) {
+  if (value is int) {
+    return value.toDouble();
+  } else if (value is double) {
+    return value;
+  } else {
+    return null; // Handle unexpected types
+  }
+}
 
 class Rating {
   double? rate;
@@ -49,7 +59,7 @@ class Rating {
   Rating({this.rate, this.count});
 
   Rating.fromJson(Map<String, dynamic> json) {
-    rate = json['rate'];
+    rate = _toDouble(json['rate']);
     count = json['count'];
   }
 

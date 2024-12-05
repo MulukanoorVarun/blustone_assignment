@@ -93,16 +93,24 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                       final product =
                                           productProvider.productList![index];
                                       return GestureDetector(
-                                        onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductDetailsScreen(
-                                                    productId:
-                                                        product.id.toString() ??
-                                                            ""),
-                                          ),
-                                        ),
+                                        onTap: () {
+                                          Navigator.of(context).push(PageRouteBuilder(
+                                            pageBuilder: (context, animation, secondaryAnimation) {
+                                              return ProductDetailsScreen(
+                                                  productId:
+                                                  product.id.toString() ??
+                                                      "");
+                                            },
+                                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                              const begin = Offset(1.0, 0.0);
+                                              const end = Offset.zero;
+                                              const curve = Curves.easeInOut;
+                                              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                                              var offsetAnimation = animation.drive(tween);
+                                              return SlideTransition(position: offsetAnimation, child: child);
+                                            },
+                                          ));
+                                        },
                                         child: Card(
                                           elevation: 3,
                                           shape: RoundedRectangleBorder(

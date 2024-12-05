@@ -111,23 +111,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 )),
                           ),
                         ),
-                        Positioned(
-                          top: 8,
-                          right: 8,
-                          child: Column(
-                            children: [
-                              SizedBox(height: h * 0.01),
-                              Container(
-                                padding: EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Color(0xffFCFCFD),
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                child:Icon(Icons.share)
-                              ),
-                            ],
-                          ),
-                        ),
+                        // Positioned(
+                        //   top: 8,
+                        //   right: 8,
+                        //   child: Column(
+                        //     children: [
+                        //       SizedBox(height: h * 0.01),
+                        //       Container(
+                        //         padding: EdgeInsets.all(8),
+                        //         decoration: BoxDecoration(
+                        //           color: Color(0xffFCFCFD),
+                        //           borderRadius: BorderRadius.circular(100),
+                        //         ),
+                        //         child:Icon(Icons.share)
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                     SizedBox(height: h * 0.01),
@@ -274,10 +274,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
-              // Shimmer for Image Section
               Container(
                 height: h * 0.3,
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
@@ -292,23 +292,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       color: Colors.grey.shade300,
                     ),
                   ),
-                ),
-              ),
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Column(
-                  children: [
-                    SizedBox(height: h * 0.01),
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Color(0xffFCFCFD),
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Icon(Icons.share, color: Colors.grey.shade400),
-                    ),
-                  ],
                 ),
               ),
             ],
