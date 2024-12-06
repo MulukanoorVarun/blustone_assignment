@@ -21,18 +21,13 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  int quantity = 0;
-  int rating = 0;
   final spinkits = Spinkits3();
   bool _isDescriptionVisible = true;
-
-
   void _toggleDescriptionVisibility() {
     setState(() {
       _isDescriptionVisible = !_isDescriptionVisible;
     });
   }
-
   @override
   void initState() {
     super.initState();
@@ -52,7 +47,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     Provider.of<ProductDetailsProvider>(context, listen: false);
     ProductdetailsProvider.fetchProductDetails(widget.productId);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,12 +72,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       children: [
                         InkResponse(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PhotoViewScreen(imageUrl: productData?.image??""),
-                              ),
-                            );
+                            Navigator.of(context).push(PageRouteBuilder(
+                              pageBuilder: (context, animation, secondaryAnimation) {
+                                return PhotoViewScreen(imageUrl: productData?.image??"");
+                              },
+                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                const begin = Offset(1.0, 0.0);
+                                const end = Offset.zero;
+                                const curve = Curves.easeInOut;
+                                var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                                var offsetAnimation = animation.drive(tween);
+                                return SlideTransition(position: offsetAnimation, child: child);
+                              },
+                            ));
                           },
                           child: Container(
                             height: h * 0.3,
@@ -111,23 +112,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 )),
                           ),
                         ),
-                        // Positioned(
-                        //   top: 8,
-                        //   right: 8,
-                        //   child: Column(
-                        //     children: [
-                        //       SizedBox(height: h * 0.01),
-                        //       Container(
-                        //         padding: EdgeInsets.all(8),
-                        //         decoration: BoxDecoration(
-                        //           color: Color(0xffFCFCFD),
-                        //           borderRadius: BorderRadius.circular(100),
-                        //         ),
-                        //         child:Icon(Icons.share)
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
                       ],
                     ),
                     SizedBox(height: h * 0.01),
@@ -297,7 +281,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ],
           ),
           SizedBox(height: h * 0.01),
-          // Shimmer for Product Info Section
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(color: Color(0xffFCFCFD)),
